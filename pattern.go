@@ -1,6 +1,11 @@
 package pathmatch
 
 
+import (
+	"bytes"
+)
+
+
 // Pattern represents a compiled pattern. It is what is returned
 // from calling either the Compile to MustCompile funcs.
 //
@@ -28,6 +33,7 @@ package pathmatch
 //		fmt.Println("Did not match.")
 //	}
 type Pattern interface {
+	Glob() string
 	Match(string, ...interface{}) (bool, error)
 	MatchAndLoad(string, interface{}) (bool, error)
 	MatchNames() []string
@@ -39,12 +45,6 @@ type internalPattern struct {
 	names             []string
 	namesSet map[string]struct{}
 	fieldTagName        string
-}
-
-
-func (pattern *internalPattern) MatchNames() []string {
-
-	return pattern.names
 }
 
 
@@ -63,3 +63,27 @@ func newPattern(fieldTagName string) *internalPattern {
 	return &pattern
 
 }
+
+
+func (pattern *internalPattern) MatchNames() []string {
+
+	return pattern.names
+}
+
+
+func (pattern *internalPattern) Glob() string {
+//@TODO: This shouldn't be executed every time!
+
+	var buffer bytes.Buffer
+
+	for _, bit := range pattern.bits {
+		if wildcardBit == bit {
+			buffer.WriteRune('*')
+		} else {
+			buffer.WriteString(bit)
+		}
+	}
+
+	return buffer.String()
+}
+
