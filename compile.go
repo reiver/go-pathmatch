@@ -22,7 +22,7 @@ var (
 // Compile takes an uncompiled pattern, in the form of a Go string (ex: "/users/{userId}/vehicles/{vehicleId}"),
 // and returns a compiled pattern.
 //
-// The compiled pattern can the be used to test if a path matches the pattern it contains.
+// The compiled pattern can then be used to test if a path matches the pattern it contains.
 //
 // If the uncompiled pattern has a syntax error, Compile returns an error.
 //
