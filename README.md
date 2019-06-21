@@ -45,7 +45,7 @@ if didMatch {
 ```
 
 Alternatively:
-```
+```go
 import (
 	"github.com/reiver/go-pathmatch"
 )
