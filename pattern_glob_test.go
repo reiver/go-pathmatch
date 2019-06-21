@@ -194,7 +194,7 @@ func TestGlob(t *testing.T) {
 
 		var pattern Pattern
 
-		err := Compile(&pattern, test.Pattern)
+		err := CompileTo(&pattern, test.Pattern)
 		if nil != err {
 			t.Errorf("For test #%d, did not expected an error, but actually got one: %v", testNumber, err)
 			continue

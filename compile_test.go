@@ -456,7 +456,7 @@ func TestCompileAndMatchNames(t *testing.T) {
 
 		var actualPattern Pattern
 
-		err := Compile(&actualPattern, test.UncompiledPattern)
+		err := CompileTo(&actualPattern, test.UncompiledPattern)
 		if nil != err {
 			t.Errorf("For test #%d, did not expect to receive an error, but actually got one: %v\nPATTERN: %q", testNumber, err, test.UncompiledPattern)
 			continue
@@ -551,7 +551,7 @@ func TestCompileFail(t *testing.T) {
 	for testNumber, test := range tests {
 		var pattern Pattern
 
-		err := Compile(&pattern, test.UncompiledPattern)
+		err := CompileTo(&pattern, test.UncompiledPattern)
 		if nil == err {
 			t.Errorf("For test #%d, expected to receive an error, but actually did not get one: %v\nPATTERN: %q", testNumber, err, test.UncompiledPattern)
 			continue

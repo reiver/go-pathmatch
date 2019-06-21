@@ -10,7 +10,7 @@ Example Usage:
 
 	var pattern pathmatch.Pattern
 	
-	err := pathmatch.Compile(&pattern, "/users/{user_id}/vehicles/{vehicle_id}")
+	err := pathmatch.CompileTo(&pattern, "/users/{user_id}/vehicles/{vehicle_id}")
 	if nil != err {
 		fmt.Fprintf(os.Stdout, "ERROR: %s\n", err)
 		return
@@ -39,7 +39,7 @@ Alternate Example Usage:
 
 	var pattern pathmatch.Pattern
 
-	err := pathmatch.Compile(pattern *Pattern, "/users/{user_id}/vehicles/{vehicle_id}")
+	err := pathmatch.CompileTo(pattern *Pattern, "/users/{user_id}/vehicles/{vehicle_id}")
 	if nil != err {
 		//@TODO
 	}

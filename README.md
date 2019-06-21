@@ -22,7 +22,7 @@ import (
 
 var pattern pathmatch.Pattern
 
-err := pathmatch.Compile(&pattern, "/users/{user_id}/vehicles/{vehicle_id}")
+err := pathmatch.CompileTo(&pattern, "/users/{user_id}/vehicles/{vehicle_id}")
 if nil != err {
 	fmt.Fprintf(os.Stdout, "ERROR: %s\n", err)
 	return
@@ -58,7 +58,7 @@ import (
 
 var pattern patchmatch.Pattern
 
-err := pathmatch.Compile(&pattern, "/users/{user_id}/vehicles/{vehicle_id}")
+err := pathmatch.CompileTo(&pattern, "/users/{user_id}/vehicles/{vehicle_id}")
 if nil != err {
 	fmt.Fprintf(os.Stdout, "ERROR: %s\n", err)
 	return

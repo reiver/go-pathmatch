@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-func ExampleCompile() {
+func ExampleCompileTo() {
 
 	var pattern pathmatch.Pattern
 
-	err := pathmatch.Compile(&pattern, "/v1/users/{user_id}/contacts/{contact_type}")
+	err := pathmatch.CompileTo(&pattern, "/v1/users/{user_id}/contacts/{contact_type}")
 	if nil != err {
 		fmt.Printf("ERROR: %s\n", err)
 		return

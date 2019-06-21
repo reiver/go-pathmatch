@@ -33,7 +33,35 @@ var (
 //		fmt.Printf("ERROR Compiling: %v\n", err)
 //		return
 //	}
-func Compile(target *Pattern, uncompiledPattern string) error {
+func Compile(uncompiledPattern string) (*Pattern, error) {
+
+	var pattern Pattern
+
+	err := CompileTo(&pattern, uncompiledPattern)
+	if nil != err {
+		return nil, err
+	}
+
+	return &pattern, nil
+}
+
+// CompileTo takes an uncompiled pattern, in the form of a Go string (ex: "/users/{userId}/vehicles/{vehicleId}"),
+// and compiles the pattern to the ‘target’.
+//
+// The compiled pattern can then be used to test if a path matches the pattern it contains.
+//
+// If the uncompiled pattern has a syntax error, Compile returns an error.
+//
+// Example Usage:
+//
+//	var pattern patchmatch.Pattern
+//
+//	err := pathmath.CompileTo(&pattern, "/users/{user_id}")
+//	if nil != err {
+//		fmt.Printf("ERROR Compiling: %v\n", err)
+//		return
+//	}
+func CompileTo(target *Pattern, uncompiledPattern string) error {
 	if nil == target {
 		return errNilTarget
 	}
@@ -111,7 +139,7 @@ func Compile(target *Pattern, uncompiledPattern string) error {
 func MustCompile(uncompiledPattern string) *Pattern {
 	var pattern Pattern
 
-	if err := Compile(&pattern, uncompiledPattern); nil != err {
+	if err := CompileTo(&pattern, uncompiledPattern); nil != err {
 		panic(err)
 	} else {
 		return &pattern
