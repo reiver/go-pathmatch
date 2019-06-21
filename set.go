@@ -25,7 +25,7 @@ func set(value string, argsIndex int, args ...interface{}) error {
 	switch a := arg.(type) {
 	case sql.Scanner:
 		if err := a.Scan(value); nil != err {
-			return newScanErrorComplainer(err, argsIndex, fmt.Sprintf("%T", arg))
+			return newScanError(err, argsIndex, fmt.Sprintf("%T", arg))
 		}
 	case *string:
 		*a = value

@@ -1,31 +1,27 @@
 package pathmatch
 
-
 import (
 	"fmt"
 )
 
-
-type ScanErrorComplainer interface {
+type ScanError interface {
 	InternalErrorComplainer
-	ScanErrorComplainer()
+	ScanError()
 	WrappedError() error
 }
 
-
-// internalScanErrorComplainer is the only underlying implementation that fits the
-// ScanErrorComplainer interface, in this library.
-type internalScanErrorComplainer struct {
+// internalScanError is the only underlying implementation that fits the
+// ScanError interface, in this library.
+type internalScanError struct {
 	wrappedError error
 	argumentIndex int
 	argumentType  string
 }
 
-
-// newScanErrorComplainer creates a new internalScanErrorComplainer (struct) and
-// returns it as a ScanErrorComplainer (interface).
-func newScanErrorComplainer(wrappedError error, argumentIndex int, argumentType string) ScanErrorComplainer {
-	err := internalScanErrorComplainer{
+// newScanError creates a new internalScanError (struct) and
+// returns it as a ScanError (interface).
+func newScanError(wrappedError error, argumentIndex int, argumentType string) ScanError {
+	err := internalScanError{
 		wrappedError:wrappedError,
 		argumentIndex:argumentIndex,
 		argumentType:argumentType,
@@ -34,28 +30,25 @@ func newScanErrorComplainer(wrappedError error, argumentIndex int, argumentType 
 	return &err
 }
 
-
 // Error method is necessary to satisfy the 'error' interface (and the
-// ScanErrorComplainer interface).
-func (err *internalScanErrorComplainer) Error() string {
+// ScanError interface).
+func (err *internalScanError) Error() string {
 	s := fmt.Sprintf("Internal Error: Received scan error for argument #%d (%s): %q", err.argumentIndex, err.argumentType, err.wrappedError.Error())
 	return s
 }
 
-
 // InternalErrorComplainer method is necessary to satisfy the 'InternalErrorComplainer' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalScanErrorComplainer) InternalErrorComplainer() {
+func (err *internalScanError) InternalErrorComplainer() {
 	// Nothing here.
 }
 
-
-// ScanErrorComplainer method is necessary to satisfy the 'ScanErrorComplainer' interface.
+// ScanError method is necessary to satisfy the 'ScanError' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalScanErrorComplainer) ScanErrorComplainer() {
+func (err *internalScanError) ScanError() {
 	// Nothing here.
 }
 
-func (err *internalScanErrorComplainer) WrappedError() error {
+func (err *internalScanError) WrappedError() error {
 	return err.wrappedError
 }
