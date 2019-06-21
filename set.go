@@ -1,11 +1,9 @@
 package pathmatch
 
-
 import (
 	"database/sql"
 	"fmt"
 )
-
 
 func set(value string, argsIndex int, args ...interface{}) error {
 
