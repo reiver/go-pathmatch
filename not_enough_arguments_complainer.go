@@ -1,32 +1,28 @@
 package pathmatch
 
-
 import (
 	"fmt"
 )
 
-
-type NotEnoughArgumentsComplainer interface {
+type NotEnoughArguments interface {
 	BadRequest
-	NotEnoughArgumentsComplainer()
+	NotEnoughArguments()
 
 	ExpectedAtLeast() int
 	Actual() int
 }
 
-
-// internalNotEnoughArgumentsComplainer is the only underlying implementation that fits the
-// NotEnoughArgumentsComplainer interface, in this library.
-type internalNotEnoughArgumentsComplainer struct {
+// internalNotEnoughArguments is the only underlying implementation that fits the
+// NotEnoughArguments interface, in this library.
+type internalNotEnoughArguments struct {
 	expectedAtLeast int
 	actual          int
 }
 
-
-// newNotEnoughArgumentsComplainer creates a new internalNotEnoughArgumentsComplainer (struct) and
-// returns it as a NotEnoughArgumentsComplainer (interface).
-func newNotEnoughArgumentsComplainer(expectedAtLeast int, actual int) NotEnoughArgumentsComplainer {
-	err := internalNotEnoughArgumentsComplainer{
+// newNotEnoughArguments creates a new internalNotEnoughArguments (struct) and
+// returns it as a NotEnoughArguments (interface).
+func newNotEnoughArguments(expectedAtLeast int, actual int) NotEnoughArguments {
+	err := internalNotEnoughArguments{
 		expectedAtLeast:expectedAtLeast,
 		actual:actual,
 	}
@@ -34,10 +30,9 @@ func newNotEnoughArgumentsComplainer(expectedAtLeast int, actual int) NotEnoughA
 	return &err
 }
 
-
 // Error method is necessary to satisfy the 'error' interface (and the
-// NotEnoughArgumentsComplainer interface).
-func (err *internalNotEnoughArgumentsComplainer) Error() string {
+// NotEnoughArguments interface).
+func (err *internalNotEnoughArguments) Error() string {
 	plural := ""
 	if 1 < err.expectedAtLeast {
 		plural = "s"
@@ -45,25 +40,22 @@ func (err *internalNotEnoughArgumentsComplainer) Error() string {
 	return fmt.Sprintf("Bad Request: Not enough arguments. Expected at least %d argument%s, but actually got %d.", err.expectedAtLeast, plural, err.actual)
 }
 
-
 // BadRequest method is necessary to satisfy the 'BadRequest' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalNotEnoughArgumentsComplainer) BadRequest() {
+func (err *internalNotEnoughArguments) BadRequest() {
 	// Nothing here.
 }
 
-
-// NotEnoughArgumentsComplainer method is necessary to satisfy the 'NotEnoughArgumentsComplainer' interface.
+// NotEnoughArguments method is necessary to satisfy the 'NotEnoughArguments' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalNotEnoughArgumentsComplainer) NotEnoughArgumentsComplainer() {
+func (err *internalNotEnoughArguments) NotEnoughArguments() {
 	// Nothing here.
 }
 
-
-func (err *internalNotEnoughArgumentsComplainer) ExpectedAtLeast() int {
+func (err *internalNotEnoughArguments) ExpectedAtLeast() int {
 	return err.expectedAtLeast
 }
 
-func (err *internalNotEnoughArgumentsComplainer) Actual() int {
+func (err *internalNotEnoughArguments) Actual() int {
 	return err.actual
 }

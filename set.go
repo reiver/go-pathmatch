@@ -17,7 +17,7 @@ func set(value string, argsIndex int, args ...interface{}) error {
 		expectedAtLeast := 1+argsIndex
 		actual          := lenArgs
 
-		return newNotEnoughArgumentsComplainer(expectedAtLeast, actual)
+		return newNotEnoughArguments(expectedAtLeast, actual)
 	}
 
 	arg := args[argsIndex]
