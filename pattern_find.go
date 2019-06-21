@@ -50,7 +50,6 @@ func (pattern *Pattern) Find(path string, args ...interface{}) (bool, error) {
 				return doesNotMatter, errThisShouldNeverHappen
 			}
 		}
-
 	}
 
 	return true, nil
