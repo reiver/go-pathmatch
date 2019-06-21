@@ -8,7 +8,9 @@ import (
 
 func ExampleCompile() {
 
-	pattern, err := pathmatch.Compile("/v1/users/{user_id}/contacts/{contact_type}")
+	var pattern pathmatch.Pattern
+
+	err := pathmatch.Compile(&pattern, "/v1/users/{user_id}/contacts/{contact_type}")
 	if nil != err {
 		fmt.Printf("ERROR: %s\n", err)
 		return

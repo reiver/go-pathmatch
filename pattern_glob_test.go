@@ -192,7 +192,9 @@ func TestGlob(t *testing.T) {
 
 	for testNumber, test := range tests {
 
-		pattern, err := Compile(test.Pattern)
+		var pattern Pattern
+
+		err := Compile(&pattern, test.Pattern)
 		if nil != err {
 			t.Errorf("For test #%d, did not expected an error, but actually got one: %v", testNumber, err)
 			continue

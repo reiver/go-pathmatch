@@ -33,22 +33,23 @@ var (
 //		fmt.Printf("ERROR Compiling: %v\n", err)
 //		return
 //	}
-func Compile(uncompiledPattern string) (*Pattern, error) {
+func Compile(target *Pattern, uncompiledPattern string) error {
+	if nil == target {
+		return errNilTarget
+	}
 
-	var pattern Pattern
-
-	newPattern(&pattern, defaultFieldTagName)
+	newPattern(target, defaultFieldTagName)
 
 	s := uncompiledPattern
 	for {
 		index := strings.IndexRune(s, '{')
 		if -1 == index {
-			pattern.bits = append(pattern.bits, s)
+			target.bits = append(target.bits, s)
 			break
 		}
 		bit := s[:index]
 		if "" != bit { // This is to deal with the case where a {???} is right at the beginning of the uncompiledPattern.
-			pattern.bits = append(pattern.bits, bit)
+			target.bits = append(target.bits, bit)
 		}
 		s = s[1+index:]
 		if "" == s {
@@ -57,21 +58,21 @@ func Compile(uncompiledPattern string) (*Pattern, error) {
 
 		index = strings.IndexRune(s, '}')
 		if -1 == index {
-			return nil, errMissingEndingRightBraceToMatchBeginningLeftBrace
+			return errMissingEndingRightBraceToMatchBeginningLeftBrace
 		}
 
 		// There should not be a slash ("/") before the ending brace ("}").
 		// If there is, it is a syntax error.
 		slashIndex := strings.IndexRune(s, '/')
 		if -1 != slashIndex && slashIndex <= index {
-			return nil, errSlashInsideOfBraces
+			return errSlashInsideOfBraces
 		}
 
 		// There should not be another beginning brace ("{") before the ending brace ("}").
 		// If there is, it is a syntax error.
 		anotherLeftBraceIndex := strings.IndexRune(s, '{')
 		if -1 != anotherLeftBraceIndex && anotherLeftBraceIndex <= index {
-			return nil, errLeftBraceInsideOfBraces
+			return errLeftBraceInsideOfBraces
 		}
 
 
@@ -79,14 +80,14 @@ func Compile(uncompiledPattern string) (*Pattern, error) {
 
 
 		// Match names should be unique, within a pattern.
-		if _, ok := pattern.namesSet[bit]; ok {
-			return nil, newPatternSyntaxError("Duplicate match name: %q.", bit)
+		if _, ok := target.namesSet[bit]; ok {
+			return newPatternSyntaxError("Duplicate match name: %q.", bit)
 		}
 
 
-		pattern.names = append(pattern.names, bit)
-		pattern.namesSet[bit] = struct{}{}
-		pattern.bits  = append(pattern.bits, wildcardBit)
+		target.names = append(target.names, bit)
+		target.namesSet[bit] = struct{}{}
+		target.bits  = append(target.bits, wildcardBit)
 		s = s[1+index:]
 		if "" == s {
 			break
@@ -94,7 +95,7 @@ func Compile(uncompiledPattern string) (*Pattern, error) {
 	}
 
 
-	return &pattern, nil
+	return nil
 }
 
 
@@ -108,9 +109,11 @@ func Compile(uncompiledPattern string) (*Pattern, error) {
 // Note that if one recover()s from the panic(), one can use a Go type-switch
 // to figure out what kind of error it is.
 func MustCompile(uncompiledPattern string) *Pattern {
-	if pattern, err := Compile(uncompiledPattern); nil != err {
+	var pattern Pattern
+
+	if err := Compile(&pattern, uncompiledPattern); nil != err {
 		panic(err)
 	} else {
-		return pattern
+		return &pattern
 	}
 }
