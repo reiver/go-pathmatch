@@ -20,28 +20,32 @@ import (
 
 // ...
 
-pattern, err := pathmatch.Compile("/users/{user_id}/vehicles/{vehicle_id}}")
+var pattern pathmatch.Pattern
+
+err := pathmatch.Compile(&pattern, "/users/{user_id}/vehicles/{vehicle_id}")
 if nil != err {
-    //@TODO
+	fmt.Fprintf(os.Stdout, "ERROR: %s\n", err)
+	return
 }
 
 var userId    string
 var vehicleId string
 
-didMatch, err := pattern.Find("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &userId, &vehicleId)
-
+matched, err := pattern.Find("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &userId, &vehicleId)
 if nil != err {
-    //@TODO
+	fmt.Fprintf(os.Stdout, "ERROR: %s\n", err)
+	return
 }
 
-if didMatch {
-    fmt.Println("The path matched!")
-
-    fmt.Printf("user_id     = %q \n", userId)     // user_id     = "bMM_kJFMEV"
-    fmt.Printf("vehicle_id  = %q \n", vehicleId)  // vehicle_id  = "o_bcU.RZGK"
-} else {
-    fmt.Println("The patch did not match.")
+if !matched {
+	fmt.Println("The patch did not match.")
+	return
 }
+
+fmt.Println("The path matched!")
+
+fmt.Printf("user_id     = %q \n", userId)     // user_id     = "bMM_kJFMEV"
+fmt.Printf("vehicle_id  = %q \n", vehicleId)  // vehicle_id  = "o_bcU.RZGK"
 ```
 
 Alternatively:
@@ -52,9 +56,12 @@ import (
 
 // ...
 
-pattern, err := pathmatch.Compile("/users/{user_id}/vehicles/{vehicle_id}}")
+var pattern patchmatch.Pattern
+
+err := pathmatch.Compile(&pattern, "/users/{user_id}/vehicles/{vehicle_id}")
 if nil != err {
-    //@TODO
+	fmt.Fprintf(os.Stdout, "ERROR: %s\n", err)
+	return
 }
 
 data := struct{
@@ -63,17 +70,19 @@ data := struct{
 }{}
 
 didMatch, err := pattern.FindAndLoad("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &data)
-
 if nil != err {
-    //@TODO
+	fmt.Fprintf(os.Stdout, "ERROR: %s\n", err)
+	return
 }
 
-if didMatch {
-    fmt.Println("The path matched!")
-
-    fmt.Printf("user_id     = %q \n", data.UserId)     // user_id     = "bMM_kJFMEV"
-    fmt.Printf("vehicle_id  = %q \n", data.VehicleId)  // vehicle_id  = "o_bcU.RZGK"
-} else {
-    fmt.Println("The patch did not match.")
+if !matched {
+	fmt.Println("The patch did not match.")
+	return
 }
+
+
+fmt.Println("The path matched!")
+
+fmt.Printf("user_id     = %q \n", data.UserId)     // user_id     = "bMM_kJFMEV"
+fmt.Printf("vehicle_id  = %q \n", data.VehicleId)  // vehicle_id  = "o_bcU.RZGK"
 ```
