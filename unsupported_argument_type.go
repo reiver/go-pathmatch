@@ -5,7 +5,7 @@ import (
 )
 
 type UnsupportedArgumentType interface {
-	BadRequestComplainer
+	BadRequest
 	UnsupportedArgumentType()
 }
 
@@ -37,9 +37,9 @@ func (err *internalUnsupportedIndexedArgumentTypeComplainer) Error() string {
 	return s
 }
 
-// BadRequestComplainer method is necessary to satisfy the 'BadRequestComplainer' interface.
+// BadRequest method is necessary to satisfy the 'BadRequest' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalUnsupportedIndexedArgumentTypeComplainer) BadRequestComplainer() {
+func (err *internalUnsupportedIndexedArgumentTypeComplainer) BadRequest() {
 	// Nothing here.
 }
 
@@ -74,9 +74,9 @@ func (err *internalUnsupportedArgumentType) Error() string {
 	return fmt.Sprintf("Bad Request: Unsupported Argument Type: %s", err.msg)
 }
 
-// BadRequestComplainer method is necessary to satisfy the 'BadRequestComplainer' interface.
+// BadRequest method is necessary to satisfy the 'BadRequest' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalUnsupportedArgumentType) BadRequestComplainer() {
+func (err *internalUnsupportedArgumentType) BadRequest() {
 	// Nothing here.
 }
 

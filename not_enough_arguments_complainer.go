@@ -7,7 +7,7 @@ import (
 
 
 type NotEnoughArgumentsComplainer interface {
-	BadRequestComplainer
+	BadRequest
 	NotEnoughArgumentsComplainer()
 
 	ExpectedAtLeast() int
@@ -46,9 +46,9 @@ func (err *internalNotEnoughArgumentsComplainer) Error() string {
 }
 
 
-// BadRequestComplainer method is necessary to satisfy the 'BadRequestComplainer' interface.
+// BadRequest method is necessary to satisfy the 'BadRequest' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalNotEnoughArgumentsComplainer) BadRequestComplainer() {
+func (err *internalNotEnoughArgumentsComplainer) BadRequest() {
 	// Nothing here.
 }
 

@@ -6,7 +6,7 @@ import (
 )
 
 
-// PatternSyntaxErrorComplainer is used to represent a specific kind of BadRequestComplainer error.
+// PatternSyntaxErrorComplainer is used to represent a specific kind of BadRequest error.
 // Specifically, it represents a syntax error in the uncompiled pattern passed to the
 // pathmatch.Compile() func.
 //
@@ -16,12 +16,12 @@ import (
 //	if nil != err {
 //		switch err.(type) {
 //	
-//		case pathmatch.PatternSyntaxErrorComplainer: // ← Here we are detecting if the error returned was due to a syntax error, in the uncompiled pattern. Also note that it comes BEFORE the 'pathmatch.BadRequestComplainer' case; THAT IS IMPORTANT!
+//		case pathmatch.PatternSyntaxErrorComplainer: // ← Here we are detecting if the error returned was due to a syntax error, in the uncompiled pattern. Also note that it comes BEFORE the 'pathmatch.BadRequest' case; THAT IS IMPORTANT!
 //	
 //			fmt.Printf("The uncompiled pattern passed to pathmatch.Compile() had a syntax error in it. The error message describing the syntax error is....\n%s\n", err.Error())
 //			return
 //	
-//		case pathmatch.BadRequestComplainer:
+//		case pathmatch.BadRequest:
 //	
 //			fmt.Printf("Something you did when you called pathmatch.Compile() caused an error. The error message was....\n%s\n", err.Error())
 //			return
@@ -38,7 +38,7 @@ import (
 //		}
 //	}
 type PatternSyntaxErrorComplainer interface {
-	BadRequestComplainer
+	BadRequest
 	PatternSyntaxErrorComplainer()
 }
 
@@ -71,9 +71,9 @@ func (err *internalPatternSyntaxErrorComplainer) Error() string {
 }
 
 
-// BadRequestComplainer method is necessary to satisfy the 'InternalErrorComplainer' interface.
+// BadRequest method is necessary to satisfy the 'InternalErrorComplainer' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalPatternSyntaxErrorComplainer) BadRequestComplainer() {
+func (err *internalPatternSyntaxErrorComplainer) BadRequest() {
 	// Nothing here.
 }
 

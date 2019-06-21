@@ -8,7 +8,7 @@ import (
 const structFieldWrongTypeMessagePrefix = "Bad Request: Wrong type for match "
 
 type StructFieldWrongType interface {
-	BadRequestComplainer
+	BadRequest
 	MatchName() string
 }
 
@@ -39,9 +39,9 @@ func (err *internalStructFieldWrongType) Error() string {
 	return buffer.String()
 }
 
-// BadRequestComplainer method is necessary to satisfy the 'BadRequestComplainer' interface.
+// BadRequest method is necessary to satisfy the 'BadRequest' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalStructFieldWrongType) BadRequestComplainer() {
+func (err *internalStructFieldWrongType) BadRequest() {
         // Nothing here.
 }
 
