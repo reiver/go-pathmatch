@@ -11,7 +11,7 @@ import (
 func TestFindAndLoad(t *testing.T) {
 
 	tests := []struct{
-		Pattern             Pattern
+		Pattern            *Pattern
 		StructPtr           interface{}
 		Path                string
 		Expected map[string]string

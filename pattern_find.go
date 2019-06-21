@@ -12,7 +12,7 @@ var (
 	errThisShouldNeverHappen = newInternalError("This should never happen.")
 )
 
-func (pattern *internalPattern) Find(path string, args ...interface{}) (bool, error) {
+func (pattern *Pattern) Find(path string, args ...interface{}) (bool, error) {
 
 	s := path
 

@@ -460,7 +460,7 @@ func TestCompileAndMatchNames(t *testing.T) {
 			continue
 		}
 
-		if expected, actual := test.ExpectedBits, actualPattern.(*internalPattern).bits; len(expected) != len(actual) {
+		if expected, actual := test.ExpectedBits, actualPattern.bits; len(expected) != len(actual) {
 			t.Errorf("For test #%d, expected compiled pattern to have %d bits, but actually had %d.\nEXPECTED BITS: %#v\nACTUAL BITS:   %#v\nPATTERN: %q", testNumber, len(expected), len(actual), expected, actual, test.UncompiledPattern)
 			continue
 		} else {
@@ -490,7 +490,7 @@ func TestCompileAndMatchNames(t *testing.T) {
 			}
 		}
 
-		if expected, actual := test.ExpectedNamesSet, actualPattern.(*internalPattern).namesSet; len(expected) != len(actual) {
+		if expected, actual := test.ExpectedNamesSet, actualPattern.namesSet; len(expected) != len(actual) {
 			t.Errorf("For test #%d, when checking directly, expected compiled pattern to have %d names in set, but actually had %d.\nEXPECTED NAMES SET: %#v\nACTUAL NAMES SET:   %#v\nPATTERN: %q", testNumber, len(expected), len(actual), expected, actual, test.UncompiledPattern)
 			continue
 		} else {

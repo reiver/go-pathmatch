@@ -9,7 +9,7 @@ import (
 func TestFind(t *testing.T) {
 
 	tests := []struct{
-		Pattern       Pattern
+		Pattern       *Pattern
 		Args         []interface{}
 		Path           string
 		ExpectedArgs []string

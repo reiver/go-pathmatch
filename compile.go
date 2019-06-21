@@ -33,7 +33,7 @@ var (
 //		fmt.Printf("ERROR Compiling: %v\n", err)
 //		return
 //	}
-func Compile(uncompiledPattern string) (Pattern, error) {
+func Compile(uncompiledPattern string) (*Pattern, error) {
 
 	pattern := newPattern(defaultFieldTagName)
 
@@ -105,7 +105,7 @@ func Compile(uncompiledPattern string) (Pattern, error) {
 //
 // Note that if one recover()s from the panic(), one can use a Go type-switch
 // to figure out what kind of error it is.
-func MustCompile(uncompiledPattern string) Pattern {
+func MustCompile(uncompiledPattern string) *Pattern {
 	if pattern, err := Compile(uncompiledPattern); nil != err {
 		panic(err)
 	} else {
