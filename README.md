@@ -13,7 +13,7 @@ Online documentation, which includes examples, can be found at: http://godoc.org
 
 
 ## Example Usage
-```
+```go
 import (
 	"github.com/reiver/go-pathmatch"
 )
