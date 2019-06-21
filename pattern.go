@@ -21,7 +21,7 @@ import (
 //	
 //	var userId string
 //	
-//	didMatch, err := pattern.Match("/users/123", userId)
+//	didMatch, err := pattern.Find("/users/123", userId)
 //	if nil != err {
 //		fmt.Printf("ERROR Matching: %v\n", err)
 //		return
@@ -34,7 +34,7 @@ import (
 //	}
 type Pattern interface {
 	Glob() string
-	Match(string, ...interface{}) (bool, error)
+	Find(string, ...interface{}) (bool, error)
 	MatchAndLoad(string, interface{}) (bool, error)
 	MatchNames() []string
 }

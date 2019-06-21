@@ -6,7 +6,7 @@ package pathmatch
 //
 // For example, maybe the uncompiled pattern passed to the pathmatch.Compile() func had
 // a syntax error in it. Or, also for example, maybe the type of parameter passed to
-// pathmatch.Pattern.Match() was of the wrong type. Etc.
+// pathmatch.Pattern.Find() was of the wrong type. Etc.
 //
 // Example usage of BadRequest with pathmatch.Compile():
 //
@@ -32,10 +32,10 @@ package pathmatch
 //	}
 //
 // Somewhat continuing this example (although without the error in the uncompiled pattern), we might then
-// use the pathmatch.Pattern.Match() method, which could also generate an error that fits the BadRequest
+// use the pathmatch.Pattern.Find() method, which could also generate an error that fits the BadRequest
 // interface.
 //
-// Example usage of BadRequest with pathmatch.Pattern.Match():
+// Example usage of BadRequest with pathmatch.Pattern.Find():
 //
 //	pattern, err := pathmatch.Compile("/users/{user_id}/cards/{fruit_id}")
 //	if nil != err {
@@ -61,18 +61,18 @@ package pathmatch
 //	var userId string
 //	var cardId string
 //	
-//	didMatch, err := pattern.Match("/users/8sN.oP/cards/X3j_T4", userId, cardId)
+//	didMatch, err := pattern.Find("/users/8sN.oP/cards/X3j_T4", userId, cardId)
 //	if nil != err {
 //		switch err.(type) { // ← Note that we are using a Go type-switch here.
 //	
 //		case pathmatch.BadRequest: // ← Here we are detecting if the error returned is a pathmatch.BadRequest.
 //	
-//			fmt.Printf("Something you did when you called pattern.Match() caused an error. The error message was....\n%s\n", err.Error())
+//			fmt.Printf("Something you did when you called pattern.Find() caused an error. The error message was....\n%s\n", err.Error())
 //			return
 //	
 //		case pathmatch.InternalError:
 //	
-//			fmt.Printf("It's not your fault; it's our fault. Something bad happened internally when pattern.Match() was running. The error message was....\n%s\n", err.Error())
+//			fmt.Printf("It's not your fault; it's our fault. Something bad happened internally when pattern.Find() was running. The error message was....\n%s\n", err.Error())
 //			return
 //	
 //		default:

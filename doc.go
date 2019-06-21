@@ -3,7 +3,7 @@ Package pathmatch provides pattern matching for paths.
 
 For example, a path could be a file system path, or a path could be a path from a URL (such as an HTTP or HTTPS based URL).
 
-The matches can be loaded into variables (when using pathmatch.Match());
+The matches can be loaded into variables (when using pathmatch.Find());
 or can be loaded into a struct (when using pathmatch.Pattern.MatchAndLoad()).
 
 Example Usage:
@@ -16,7 +16,7 @@ Example Usage:
 	var userId    string
 	var vehicleId string
 	
-	didMatch, err := pattern.Match("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &userId, &vehicleId)
+	didMatch, err := pattern.Find("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &userId, &vehicleId)
 	
 	if nil != err {
 		//@TODO

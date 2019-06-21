@@ -1,22 +1,18 @@
 package pathmatch
 
-
 import (
 	"strings"
 )
-
 
 const (
 	doesNotMatter = false
 )
 
-
 var (
 	errThisShouldNeverHappen = newInternalError("This should never happen.")
 )
 
-
-func (pattern *internalPattern) Match(path string, args ...interface{}) (bool, error) {
+func (pattern *internalPattern) Find(path string, args ...interface{}) (bool, error) {
 
 	s := path
 
@@ -50,7 +46,6 @@ func (pattern *internalPattern) Match(path string, args ...interface{}) (bool, e
 		}
 
 	}
-
 
 	return true, nil
 }

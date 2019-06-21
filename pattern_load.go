@@ -24,7 +24,7 @@ func (pattern *internalPattern) MatchAndLoad(path string, strct interface{}) (bo
 		args = append(args, new(string))
 	}
 
-	didMatch, err := pattern.Match(path, args...)
+	didMatch, err := pattern.Find(path, args...)
 	if nil != err {
 		return doesNotMatter, err
 	}

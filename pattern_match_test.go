@@ -6,7 +6,7 @@ import (
 )
 
 
-func TestMatch(t *testing.T) {
+func TestFind(t *testing.T) {
 
 	tests := []struct{
 		Pattern       Pattern
@@ -105,7 +105,7 @@ func TestMatch(t *testing.T) {
 			}
 		}
 
-		if didMatch, err := test.Pattern.Match(test.Path, test.Args...); nil != err {
+		if didMatch, err := test.Pattern.Find(test.Path, test.Args...); nil != err {
 			t.Errorf("For test #%d, did not expected an error, but actually got one: %v", testNumber, err)
 			continue
 		} else if !didMatch {

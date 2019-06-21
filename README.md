@@ -28,7 +28,7 @@ if nil != err {
 var userId    string
 var vehicleId string
 
-didMatch, err := pattern.Match("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &userId, &vehicleId)
+didMatch, err := pattern.Find("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &userId, &vehicleId)
 
 if nil != err {
     //@TODO
