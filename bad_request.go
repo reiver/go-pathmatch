@@ -1,7 +1,7 @@
 package pathmatch
 
 // BadRequest is used to represent one of the types of errors that could be returned when
-// calling the pathmatch.Compile func, the pathmatch.Pattern.Match method, or the pathmatch.Pattern.MatchAndLoad
+// calling the pathmatch.Compile func, the pathmatch.Pattern.Match method, or the pathmatch.Pattern.FindAndLoad
 // method. The meaning of this type of error is that the problem was due to something whomever called the func or method did.
 //
 // For example, maybe the uncompiled pattern passed to the pathmatch.Compile() func had

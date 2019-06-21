@@ -22,7 +22,7 @@ func ExampleCompile() {
 
 	var path = "/v1/users/123/contacts/e-mail"
 
-	matched, err := pattern.MatchAndLoad(path, &target)
+	matched, err := pattern.FindAndLoad(path, &target)
 	if nil != err {
 		fmt.Printf("ERROR: %s\n", err)
 		return

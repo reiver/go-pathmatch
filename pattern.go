@@ -9,7 +9,7 @@ import (
 // Pattern represents a compiled pattern. It is what is returned
 // from calling either the Compile to MustCompile funcs.
 //
-// Pattern provides the Match, MatchAndLoad, and MatchNames methods.
+// Pattern provides the Match, FindAndLoad, and MatchNames methods.
 //
 // Example Usage:
 //
@@ -35,7 +35,7 @@ import (
 type Pattern interface {
 	Glob() string
 	Find(string, ...interface{}) (bool, error)
-	MatchAndLoad(string, interface{}) (bool, error)
+	FindAndLoad(string, interface{}) (bool, error)
 	MatchNames() []string
 }
 

@@ -4,7 +4,7 @@ Package pathmatch provides pattern matching for paths.
 For example, a path could be a file system path, or a path could be a path from a URL (such as an HTTP or HTTPS based URL).
 
 The matches can be loaded into variables (when using pathmatch.Find());
-or can be loaded into a struct (when using pathmatch.Pattern.MatchAndLoad()).
+or can be loaded into a struct (when using pathmatch.Pattern.FindAndLoad()).
 
 Example Usage:
 
@@ -43,7 +43,7 @@ Alternate Example Usage:
 		VehicleId string `match:"vehicle_id"`
 	}{}
 	
-	didMatch, err := pattern.MatchAndLoad("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &data)
+	didMatch, err := pattern.FindAndLoad("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &data)
 	
 	if nil != err {
 		//@TODO

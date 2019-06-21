@@ -8,7 +8,7 @@ import (
 )
 
 
-func TestMatchAndLoad(t *testing.T) {
+func TestFindAndLoad(t *testing.T) {
 
 	tests := []struct{
 		Pattern             Pattern
@@ -144,7 +144,7 @@ func TestMatchAndLoad(t *testing.T) {
 			}
 		}
 
-		if didMatch, err := test.Pattern.MatchAndLoad(test.Path, test.StructPtr); nil != err {
+		if didMatch, err := test.Pattern.FindAndLoad(test.Path, test.StructPtr); nil != err {
 			t.Errorf("For test #%d, did not expected an error, but actually got one: %v", testNumber, err)
 			continue
 		} else if !didMatch {

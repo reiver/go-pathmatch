@@ -14,7 +14,7 @@ var (
 )
 
 
-func (pattern *internalPattern) MatchAndLoad(path string, strct interface{}) (bool, error) {
+func (pattern *internalPattern) FindAndLoad(path string, strct interface{}) (bool, error) {
 
 //@TODO: Is it a good idea to be dynamically creating this?
 //@TODO: Also, can the struct fields be put in here directly instead?
