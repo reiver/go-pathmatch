@@ -1,32 +1,24 @@
 package pathmatch
 
-
 import (
 	"fmt"
 )
 
-
-type UnsupportedArgumentTypeComplainer interface {
+type UnsupportedArgumentType interface {
 	BadRequestComplainer
-	UnsupportedArgumentTypeComplainer()
+	UnsupportedArgumentType()
 }
 
-
-
-
-
-
 // internalUnsupportedIndexedArgumentTypeComplainer is the only underlying implementation that fits the
-// UnsupportedArgumentTypeComplainer interface, in this library.
+// UnsupportedArgumentType interface, in this library.
 type internalUnsupportedIndexedArgumentTypeComplainer struct {
 	argumentIndex int
 	argumentType  string
 }
 
-
 // newUnsupportedIndexedArgumentTypeComplainer creates a new internalUnsupportedIndexedArgumentTypeComplainer (struct) and
-// returns it as a UnsupportedArgumentTypeComplainer (interface).
-func newUnsupportedIndexedArgumentTypeComplainer(argumentIndex int, argumentType string) UnsupportedArgumentTypeComplainer {
+// returns it as a UnsupportedArgumentType (interface).
+func newUnsupportedIndexedArgumentTypeComplainer(argumentIndex int, argumentType string) UnsupportedArgumentType {
 	err := internalUnsupportedIndexedArgumentTypeComplainer{
 		argumentIndex:argumentIndex,
 		argumentType:argumentType,
@@ -35,9 +27,8 @@ func newUnsupportedIndexedArgumentTypeComplainer(argumentIndex int, argumentType
 	return &err
 }
 
-
 // Error method is necessary to satisfy the 'error' interface (and the
-// UnsupportedArgumentTypeComplainer interface).
+// UnsupportedArgumentType interface).
 func (err *internalUnsupportedIndexedArgumentTypeComplainer) Error() string {
 	s := fmt.Sprintf("Bad Request: Type of argument #%d (%s) is unsupported.", err.argumentIndex, err.argumentType)
 	if "string" == err.argumentType {
@@ -46,62 +37,51 @@ func (err *internalUnsupportedIndexedArgumentTypeComplainer) Error() string {
 	return s
 }
 
-
 // BadRequestComplainer method is necessary to satisfy the 'BadRequestComplainer' interface.
 // It exists to make this error type detectable in a Go type-switch.
 func (err *internalUnsupportedIndexedArgumentTypeComplainer) BadRequestComplainer() {
 	// Nothing here.
 }
 
-
-// UnsupportedArgumentTypeComplainer method is necessary to satisfy the 'UnsupportedArgumentTypeComplainer' interface.
+// UnsupportedArgumentType method is necessary to satisfy the 'UnsupportedArgumentType' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalUnsupportedIndexedArgumentTypeComplainer) UnsupportedArgumentTypeComplainer() {
+func (err *internalUnsupportedIndexedArgumentTypeComplainer) UnsupportedArgumentType() {
 	// Nothing here.
 }
 
-
-
-
-
-
-// internalUnsupportedArgumentTypeComplainer is the only underlying implementation that fits the
-// UnsupportedArgumentTypeComplainer interface, in this library.
-type internalUnsupportedArgumentTypeComplainer struct {
+// internalUnsupportedArgumentType is the only underlying implementation that fits the
+// UnsupportedArgumentType interface, in this library.
+type internalUnsupportedArgumentType struct {
 	msg string
 }
 
-
-// newUnsupportedArgumentTypeComplainer creates a new internalUnsupportedArgumentTypeComplainer (struct) and
-// returns it as a UnsupportedArgumentTypeComplainer (interface).
-func newUnsupportedArgumentTypeComplainer(format string, a ...interface{}) UnsupportedArgumentTypeComplainer {
+// newUnsupportedArgumentType creates a new internalUnsupportedArgumentType (struct) and
+// returns it as a UnsupportedArgumentType (interface).
+func newUnsupportedArgumentType(format string, a ...interface{}) UnsupportedArgumentType {
 	msg := fmt.Sprintf(format, a...)
 
-	err := internalUnsupportedArgumentTypeComplainer{
+	err := internalUnsupportedArgumentType{
 		msg:msg,
 	}
 
 	return &err
 }
 
-
 // Error method is necessary to satisfy the 'error' interface (and the
-// UnsupportedArgumentTypeComplainer interface).
-func (err *internalUnsupportedArgumentTypeComplainer) Error() string {
+// UnsupportedArgumentType interface).
+func (err *internalUnsupportedArgumentType) Error() string {
 
 	return fmt.Sprintf("Bad Request: Unsupported Argument Type: %s", err.msg)
 }
 
-
 // BadRequestComplainer method is necessary to satisfy the 'BadRequestComplainer' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalUnsupportedArgumentTypeComplainer) BadRequestComplainer() {
+func (err *internalUnsupportedArgumentType) BadRequestComplainer() {
 	// Nothing here.
 }
 
-
-// UnsupportedArgumentTypeComplainer method is necessary to satisfy the 'UnsupportedArgumentTypeComplainer' interface.
+// UnsupportedArgumentType method is necessary to satisfy the 'UnsupportedArgumentType' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalUnsupportedArgumentTypeComplainer) UnsupportedArgumentTypeComplainer() {
+func (err *internalUnsupportedArgumentType) UnsupportedArgumentType() {
 	// Nothing here.
 }

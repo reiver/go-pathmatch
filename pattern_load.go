@@ -10,7 +10,7 @@ import (
 
 
 var (
-	errExpectedAPointerToAStruct = newUnsupportedArgumentTypeComplainer("Expected a pointer to a struct, but wasn't.")
+	errExpectedAPointerToAStruct = newUnsupportedArgumentType("Expected a pointer to a struct, but wasn't.")
 )
 
 
