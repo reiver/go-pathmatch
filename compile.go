@@ -35,7 +35,9 @@ var (
 //	}
 func Compile(uncompiledPattern string) (*Pattern, error) {
 
-	pattern := newPattern(defaultFieldTagName)
+	var pattern Pattern
+
+	newPattern(&pattern, defaultFieldTagName)
 
 	s := uncompiledPattern
 	for {
@@ -92,7 +94,7 @@ func Compile(uncompiledPattern string) (*Pattern, error) {
 	}
 
 
-	return pattern, nil
+	return &pattern, nil
 }
 
 

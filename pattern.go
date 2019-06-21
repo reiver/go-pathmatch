@@ -37,20 +37,21 @@ type Pattern struct {
 	fieldTagName        string
 }
 
-func newPattern(fieldTagName string) *Pattern {
+func newPattern(target *Pattern, fieldTagName string) error {
+	if nil == target {
+		return errNilTarget
+	}
+
 	bits     := []string{}
 	names    := []string{}
 	namesSet := map[string]struct{}{}
 
-	pattern := Pattern{
-		bits:bits,
-		names:names,
-		namesSet:namesSet,
-		fieldTagName:fieldTagName,
-	}
+	target.bits         = bits
+	target.names        = names
+	target.namesSet     = namesSet
+	target.fieldTagName = fieldTagName
 
-	return &pattern
-
+	return nil
 }
 
 func (pattern *Pattern) MatchNames() []string {
