@@ -78,7 +78,7 @@ func (pattern *internalPattern) MatchAndLoad(path string, strct interface{}) (bo
 						}
 					}
 
-					msg := fmt.Sprintf("%T %v", r)
+					msg := fmt.Sprintf("%T %v", r, r)
 
 					err = errors.New( msg )
 					return
