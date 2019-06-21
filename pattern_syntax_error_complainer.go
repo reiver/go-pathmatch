@@ -26,7 +26,7 @@ import (
 //			fmt.Printf("Something you did when you called pathmatch.Compile() caused an error. The error message was....\n%s\n", err.Error())
 //			return
 //	
-//		case pathmatch.InternalErrorComplainer:
+//		case pathmatch.InternalError:
 //	
 //			fmt.Printf("It's not your fault; it's our fault. Something bad happened internally when pathmatch.Compile() was running. The error message was....\n%s\n", err.Error())
 //			return
@@ -71,7 +71,7 @@ func (err *internalPatternSyntaxErrorComplainer) Error() string {
 }
 
 
-// BadRequest method is necessary to satisfy the 'InternalErrorComplainer' interface.
+// BadRequest method is necessary to satisfy the 'InternalError' interface.
 // It exists to make this error type detectable in a Go type-switch.
 func (err *internalPatternSyntaxErrorComplainer) BadRequest() {
 	// Nothing here.

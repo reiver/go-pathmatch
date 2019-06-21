@@ -346,9 +346,9 @@ func TestSetFail(t *testing.T) {
 			continue
 		} else {
 			switch err.(type) {
-			case InternalErrorComplainer:
+			case InternalError:
 				if expected, actual := internalError, test.ExpectedFit; expected != actual {
-					t.Errorf("For test #%d, did indeed expect an error, but did not expect it to fit the \"InternalErrorComplainer\" interface, but actually did: %T.", testNumber, err)
+					t.Errorf("For test #%d, did indeed expect an error, but did not expect it to fit the \"InternalError\" interface, but actually did: %T.", testNumber, err)
 					continue
 				}
 			case NotEnoughArgumentsComplainer:

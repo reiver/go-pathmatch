@@ -12,7 +12,7 @@ const (
 
 
 var (
-	errThisShouldNeverHappen = newInternalErrorComplainer("This should never happen.")
+	errThisShouldNeverHappen = newInternalError("This should never happen.")
 )
 
 

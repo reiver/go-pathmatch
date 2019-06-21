@@ -10,7 +10,7 @@ import (
 func set(value string, argsIndex int, args ...interface{}) error {
 
 	if 0 > argsIndex {
-		return newInternalErrorComplainer("Index value %d is less than zero.", argsIndex)
+		return newInternalError("Index value %d is less than zero.", argsIndex)
 	}
 
 	if lenArgs := len(args); argsIndex >= lenArgs {

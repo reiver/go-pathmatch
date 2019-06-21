@@ -1,46 +1,40 @@
 package pathmatch
 
-
 import (
 	"bytes"
 	"fmt"
 )
 
-
 const (
 	internalErrorMessagePrefix = "Internal Error: "
 )
 
-
-type InternalErrorComplainer interface {
+type InternalError interface {
 	error
-	InternalErrorComplainer()
+	InternalError()
 }
 
-
-// internalInternalErrorComplainer is the only underlying implementation that fits the
-// InternalErrorComplainer interface, in this library.
-type internalInternalErrorComplainer struct {
+// internalInternalError is the only underlying implementation that fits the
+// InternalError interface, in this library.
+type internalInternalError struct {
 	msg string
 }
 
-
-// newInternalErrorComplainer creates a new internalInternalErrorComplainer (struct) and
-// returns it as a InternalErrorComplainer (interface).
-func newInternalErrorComplainer(format string, a ...interface{}) InternalErrorComplainer {
+// newInternalError creates a new internalInternalError (struct) and
+// returns it as a InternalError (interface).
+func newInternalError(format string, a ...interface{}) InternalError {
 	msg := fmt.Sprintf(format, a...)
 
-	err := internalInternalErrorComplainer{
+	err := internalInternalError{
 		msg:msg,
 	}
 
 	return &err
 }
 
-
-// Error method is necessary to satisfy the 'error' interface (and the InternalErrorComplainer
+// Error method is necessary to satisfy the 'error' interface (and the InternalError
 // interface).
-func (err *internalInternalErrorComplainer) Error() string {
+func (err *internalInternalError) Error() string {
 	var buffer bytes.Buffer
 
 	buffer.WriteString(internalErrorMessagePrefix)
@@ -49,9 +43,8 @@ func (err *internalInternalErrorComplainer) Error() string {
 	return buffer.String()
 }
 
-
-// InternalErrorComplainer method is necessary to satisfy the 'InternalErrorComplainer' interface.
+// InternalError method is necessary to satisfy the 'InternalError' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalInternalErrorComplainer) InternalErrorComplainer() {
+func (err *internalInternalError) InternalError() {
 	// Nothing here.
 }

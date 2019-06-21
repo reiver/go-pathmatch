@@ -19,7 +19,7 @@ package pathmatch
 //			fmt.Printf("Something you did when you called pathmatch.Compile() caused an error. The error message was....\n%s\n", err.Error())
 //			return
 //	
-//		case pathmatch.InternalErrorComplainer:
+//		case pathmatch.InternalError:
 //	
 //			fmt.Printf("It's not your fault; it's our fault. Something bad happened internally when pathmatch.Compile() was running. The error message was....\n%s\n", err.Error())
 //			return
@@ -46,7 +46,7 @@ package pathmatch
 //			fmt.Printf("Something you did when you called pathmatch.Compile() caused an error. The error message was....\n%s\n", err.Error())
 //			return
 //	
-//		case pathmatch.InternalErrorComplainer:
+//		case pathmatch.InternalError:
 //	
 //			fmt.Printf("It's not your fault; it's our fault. Something bad happened internally when pathmatch.Compile() was running. The error message was....\n%s\n", err.Error())
 //			return
@@ -70,7 +70,7 @@ package pathmatch
 //			fmt.Printf("Something you did when you called pattern.Match() caused an error. The error message was....\n%s\n", err.Error())
 //			return
 //	
-//		case pathmatch.InternalErrorComplainer:
+//		case pathmatch.InternalError:
 //	
 //			fmt.Printf("It's not your fault; it's our fault. Something bad happened internally when pattern.Match() was running. The error message was....\n%s\n", err.Error())
 //			return
@@ -103,7 +103,7 @@ package pathmatch
 //			fmt.Printf("Something you did when you called pathmatch.Compile() caused an error. The error message was....\n%s\n", err.Error())
 //			return
 //	
-//		case pathmatch.InternalErrorComplainer:
+//		case pathmatch.InternalError:
 //	
 //			fmt.Printf("It's not your fault; it's our fault. Something bad happened internally when pathmatch.Compile() was running. The error message was....\n%s\n", err.Error())
 //			return

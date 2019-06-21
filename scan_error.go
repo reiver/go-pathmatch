@@ -5,7 +5,7 @@ import (
 )
 
 type ScanError interface {
-	InternalErrorComplainer
+	InternalError
 	ScanError()
 	WrappedError() error
 }
@@ -37,9 +37,9 @@ func (err *internalScanError) Error() string {
 	return s
 }
 
-// InternalErrorComplainer method is necessary to satisfy the 'InternalErrorComplainer' interface.
+// InternalError method is necessary to satisfy the 'InternalError' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalScanError) InternalErrorComplainer() {
+func (err *internalScanError) InternalError() {
 	// Nothing here.
 }
 
