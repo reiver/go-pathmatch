@@ -69,7 +69,7 @@ data := struct{
 	VehicleId string `match:"vehicle_id"`
 }{}
 
-didMatch, err := pattern.FindAndLoad("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &data)
+matched, err := pattern.FindAndLoad("/users/bMM_kJFMEV/vehicles/o_bcU.RZGK", &data)
 if nil != err {
 	fmt.Fprintf(os.Stdout, "ERROR: %s\n", err)
 	return
