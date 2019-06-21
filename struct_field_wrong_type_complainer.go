@@ -1,40 +1,36 @@
 package pathmatch
 
-
 import (
 	"bytes"
 	"fmt"
 )
 
-
 const structFieldWrongTypeMessagePrefix = "Bad Request: Wrong type for match "
 
-
-type StructFieldWrongTypeComplainer interface {
+type StructFieldWrongType interface {
 	BadRequestComplainer
 	MatchName() string
 }
 
-// internalStructFieldWrongTypeComplainer is the only underlying implementation that fits the
-// StructFieldWrongTypeComplainer interface, in this library.
-type internalStructFieldWrongTypeComplainer struct {
+// internalStructFieldWrongType is the only underlying implementation that fits the
+// StructFieldWrongType interface, in this library.
+type internalStructFieldWrongType struct {
 	matchName string
 }
 
-// newStructFieldWrongTypeComplainer creates a new internalStructFieldWrongTypeComplainer (struct) and
-// returns it as a StructFieldWrongTypeComplainer (interface).
-func newStructFieldWrongTypeComplainer(matchName string) StructFieldWrongTypeComplainer {
-	err := internalStructFieldWrongTypeComplainer{
+// newStructFieldWrongType creates a new internalStructFieldWrongType (struct) and
+// returns it as a StructFieldWrongType (interface).
+func newStructFieldWrongType(matchName string) StructFieldWrongType {
+	err := internalStructFieldWrongType{
 		matchName:matchName,
 	}
 
 	return &err
 }
 
-
-// Error method is necessary to satisfy the 'error' interface (and the StructFieldWrongTypeComplainer
+// Error method is necessary to satisfy the 'error' interface (and the StructFieldWrongType
 // interface).
-func (err *internalStructFieldWrongTypeComplainer) Error() string {
+func (err *internalStructFieldWrongType) Error() string {
 	var buffer bytes.Buffer
 
 	buffer.WriteString(structFieldWrongTypeMessagePrefix)
@@ -43,15 +39,13 @@ func (err *internalStructFieldWrongTypeComplainer) Error() string {
 	return buffer.String()
 }
 
-
 // BadRequestComplainer method is necessary to satisfy the 'BadRequestComplainer' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalStructFieldWrongTypeComplainer) BadRequestComplainer() {
+func (err *internalStructFieldWrongType) BadRequestComplainer() {
         // Nothing here.
 }
 
-
-// DependencyName method is necessary to satisfy the 'StructFieldWrongTypeComplainer' interface.
-func (err *internalStructFieldWrongTypeComplainer) MatchName() string {
+// DependencyName method is necessary to satisfy the 'StructFieldWrongType' interface.
+func (err *internalStructFieldWrongType) MatchName() string {
 	return err.matchName
 }

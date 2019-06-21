@@ -85,7 +85,7 @@ package pathmatch
 //
 // Note that one can get more specific than just a BadRequestComplainer. For example:
 // NotEnoughArgumentsComplainer, PatternSyntaxErrorComplainer, UnsupportedArgumentType,
-// and StructFieldWrongTypeComplainer.
+// and StructFieldWrongType.
 //
 // To be able to detect those more specific error types, put them BEFORE the "case pathmatch.BadRequestComplainer:"
 // in the type switch. For example:

@@ -72,7 +72,7 @@ func (pattern *internalPattern) MatchAndLoad(path string, strct interface{}) (bo
 							needle = " is not assignable to type "
 
 							if strings.Contains(s, needle) {
-								err = newStructFieldWrongTypeComplainer(matchName)
+								err = newStructFieldWrongType(matchName)
 								return
 							}
 						}
