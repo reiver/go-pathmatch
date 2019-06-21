@@ -6,7 +6,7 @@ import (
 )
 
 
-// PatternSyntaxErrorComplainer is used to represent a specific kind of BadRequest error.
+// PatternSyntaxError is used to represent a specific kind of BadRequest error.
 // Specifically, it represents a syntax error in the uncompiled pattern passed to the
 // pathmatch.Compile() func.
 //
@@ -16,7 +16,7 @@ import (
 //	if nil != err {
 //		switch err.(type) {
 //	
-//		case pathmatch.PatternSyntaxErrorComplainer: // ← Here we are detecting if the error returned was due to a syntax error, in the uncompiled pattern. Also note that it comes BEFORE the 'pathmatch.BadRequest' case; THAT IS IMPORTANT!
+//		case pathmatch.PatternSyntaxError: // ← Here we are detecting if the error returned was due to a syntax error, in the uncompiled pattern. Also note that it comes BEFORE the 'pathmatch.BadRequest' case; THAT IS IMPORTANT!
 //	
 //			fmt.Printf("The uncompiled pattern passed to pathmatch.Compile() had a syntax error in it. The error message describing the syntax error is....\n%s\n", err.Error())
 //			return
@@ -37,25 +37,25 @@ import (
 //			return
 //		}
 //	}
-type PatternSyntaxErrorComplainer interface {
+type PatternSyntaxError interface {
 	BadRequest
-	PatternSyntaxErrorComplainer()
+	PatternSyntaxError()
 }
 
 
-// internalPatternSyntaxErrorComplainer is the only underlying implementation that fits the
-// PatternSyntaxErrorComplainer interface, in this library.
-type internalPatternSyntaxErrorComplainer struct {
+// internalPatternSyntaxError is the only underlying implementation that fits the
+// PatternSyntaxError interface, in this library.
+type internalPatternSyntaxError struct {
 	msg string
 }
 
 
-// newPatternSyntaxErrorComplainer creates a new internalPatternSyntaxErrorComplainer (struct) and
-// returns it as a PatternSyntaxErrorComplainer (interface).
-func newPatternSyntaxErrorComplainer(format string, a ...interface{}) PatternSyntaxErrorComplainer {
+// newPatternSyntaxError creates a new internalPatternSyntaxError (struct) and
+// returns it as a PatternSyntaxError (interface).
+func newPatternSyntaxError(format string, a ...interface{}) PatternSyntaxError {
 	msg := fmt.Sprintf(format, a...)
 
-	err := internalPatternSyntaxErrorComplainer{
+	err := internalPatternSyntaxError{
 		msg:msg,
 	}
 
@@ -64,8 +64,8 @@ func newPatternSyntaxErrorComplainer(format string, a ...interface{}) PatternSyn
 
 
 // Error method is necessary to satisfy the 'error' interface (and the
-// PatternSyntaxErrorComplainer interface).
-func (err *internalPatternSyntaxErrorComplainer) Error() string {
+// PatternSyntaxError interface).
+func (err *internalPatternSyntaxError) Error() string {
 	s := fmt.Sprintf("Bad Request: Syntax Error: %s", err.msg)
 	return s
 }
@@ -73,13 +73,13 @@ func (err *internalPatternSyntaxErrorComplainer) Error() string {
 
 // BadRequest method is necessary to satisfy the 'InternalError' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalPatternSyntaxErrorComplainer) BadRequest() {
+func (err *internalPatternSyntaxError) BadRequest() {
 	// Nothing here.
 }
 
 
-// PatternSyntaxErrorComplainer method is necessary to satisfy the 'PatternSyntaxErrorComplainer' interface.
+// PatternSyntaxError method is necessary to satisfy the 'PatternSyntaxError' interface.
 // It exists to make this error type detectable in a Go type-switch.
-func (err *internalPatternSyntaxErrorComplainer) PatternSyntaxErrorComplainer() {
+func (err *internalPatternSyntaxError) PatternSyntaxError() {
 	// Nothing here.
 }

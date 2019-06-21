@@ -13,9 +13,9 @@ const (
 
 
 var (
-	errMissingEndingRightBraceToMatchBeginningLeftBrace = newPatternSyntaxErrorComplainer(`Missing ending "}" (to match beginning "{").`)
-	errSlashInsideOfBraces     = newPatternSyntaxErrorComplainer(`"/" inside of "{...}".`)
-	errLeftBraceInsideOfBraces = newPatternSyntaxErrorComplainer(`"{" inside of "{...}".`)
+	errMissingEndingRightBraceToMatchBeginningLeftBrace = newPatternSyntaxError(`Missing ending "}" (to match beginning "{").`)
+	errSlashInsideOfBraces     = newPatternSyntaxError(`"/" inside of "{...}".`)
+	errLeftBraceInsideOfBraces = newPatternSyntaxError(`"{" inside of "{...}".`)
 )
 
 
@@ -78,7 +78,7 @@ func Compile(uncompiledPattern string) (Pattern, error) {
 
 		// Match names should be unique, within a pattern.
 		if _, ok := pattern.namesSet[bit]; ok {
-			return nil, newPatternSyntaxErrorComplainer("Duplicate match name: %q.", bit)
+			return nil, newPatternSyntaxError("Duplicate match name: %q.", bit)
 		}
 
 

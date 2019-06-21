@@ -83,7 +83,7 @@ package pathmatch
 //	}
 //
 // Note that one can get more specific than just a BadRequest. For example:
-// NotEnoughArguments, PatternSyntaxErrorComplainer, UnsupportedArgumentType,
+// NotEnoughArguments, PatternSyntaxError, UnsupportedArgumentType,
 // and StructFieldWrongType.
 //
 // To be able to detect those more specific error types, put them BEFORE the "case pathmatch.BadRequest:"
@@ -93,7 +93,7 @@ package pathmatch
 //	if nil != err {
 //		switch err.(type) {
 //	
-//		case pathmatch.PatternSyntaxErrorComplainer: // ← Here we are detecting if the error returned was due to a syntax error, in the uncompiled pattern. Also note that it comes BEFORE the 'pathmatch.BadRequest' case; THAT IS IMPORTANT!
+//		case pathmatch.PatternSyntaxError: // ← Here we are detecting if the error returned was due to a syntax error, in the uncompiled pattern. Also note that it comes BEFORE the 'pathmatch.BadRequest' case; THAT IS IMPORTANT!
 //	
 //			fmt.Printf("The uncompiled pattern passed to pathmatch.Compile() had a syntax error in it. The error message describing the syntax error is....\n%s\n", err.Error())
 //			return
