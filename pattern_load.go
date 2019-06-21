@@ -15,6 +15,12 @@ var (
 
 
 func (pattern *Pattern) FindAndLoad(path string, strct interface{}) (bool, error) {
+	if nil == pattern {
+		return false, errNilReceiver
+	}
+
+	pattern.mutex.RLock()
+	defer pattern.mutex.RUnlock()
 
 //@TODO: Is it a good idea to be dynamically creating this?
 //@TODO: Also, can the struct fields be put in here directly instead?

@@ -1,7 +1,7 @@
 package pathmatch
 
 import (
-	"bytes"
+	"sync"
 )
 
 // Pattern represents a compiled pattern. It is what is returned
@@ -31,46 +31,20 @@ import (
 //		fmt.Println("Did not match.")
 //	}
 type Pattern struct {
+	mutex sync.RWMutex
 	bits              []string
 	names             []string
 	namesSet map[string]struct{}
 	fieldTagName        string
 }
 
-func newPattern(target *Pattern, fieldTagName string) error {
-	if nil == target {
-		return errNilTarget
+func (pattern *Pattern) MatchNames() []string {
+	if nil == pattern {
+		return nil
 	}
 
-	bits     := []string{}
-	names    := []string{}
-	namesSet := map[string]struct{}{}
-
-	target.bits         = bits
-	target.names        = names
-	target.namesSet     = namesSet
-	target.fieldTagName = fieldTagName
-
-	return nil
-}
-
-func (pattern *Pattern) MatchNames() []string {
+	pattern.mutex.RLock()
+	defer pattern.mutex.RUnlock()
 
 	return pattern.names
-}
-
-func (pattern *Pattern) Glob() string {
-//@TODO: This shouldn't be executed every time!
-
-	var buffer bytes.Buffer
-
-	for _, bit := range pattern.bits {
-		if wildcardBit == bit {
-			buffer.WriteRune('*')
-		} else {
-			buffer.WriteString(bit)
-		}
-	}
-
-	return buffer.String()
 }

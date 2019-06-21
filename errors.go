@@ -5,5 +5,6 @@ import (
 )
 
 var (
-	errNilTarget = errors.New("pathmatch: Nil Target")
+	errNilReceiver = errors.New("pathmatch: Nil Receiver")
+	errNilTarget   = errors.New("pathmatch: Nil Target")
 )

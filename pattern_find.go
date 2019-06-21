@@ -13,6 +13,12 @@ var (
 )
 
 func (pattern *Pattern) Find(path string, args ...interface{}) (bool, error) {
+	if nil == pattern {
+		return false, errNilReceiver
+	}
+
+	pattern.mutex.RLock()
+	defer pattern.mutex.RUnlock()
 
 	s := path
 

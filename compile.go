@@ -1,23 +1,19 @@
 package pathmatch
 
-
 import (
 	"strings"
 )
-
 
 const (
 	defaultFieldTagName = "match"
 	wildcardBit = "{}"
 )
 
-
 var (
 	errMissingEndingRightBraceToMatchBeginningLeftBrace = newPatternSyntaxError(`Missing ending "}" (to match beginning "{").`)
 	errSlashInsideOfBraces     = newPatternSyntaxError(`"/" inside of "{...}".`)
 	errLeftBraceInsideOfBraces = newPatternSyntaxError(`"{" inside of "{...}".`)
 )
-
 
 // Compile takes an uncompiled pattern, in the form of a Go string (ex: "/users/{userId}/vehicles/{vehicleId}"),
 // and returns a compiled pattern.
@@ -66,7 +62,10 @@ func CompileTo(target *Pattern, uncompiledPattern string) error {
 		return errNilTarget
 	}
 
-	newPattern(target, defaultFieldTagName)
+	target.mutex.Lock()
+	defer target.mutex.Unlock()
+
+	target.init(defaultFieldTagName)
 
 	s := uncompiledPattern
 	for {
