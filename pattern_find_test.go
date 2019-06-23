@@ -1,7 +1,9 @@
-package pathmatch
+package pathmatch_test
 
 
 import (
+	"github.com/reiver/go-pathmatch"
+
 	"testing"
 )
 
@@ -9,13 +11,13 @@ import (
 func TestFind(t *testing.T) {
 
 	tests := []struct{
-		Pattern       *Pattern
+		Pattern       *pathmatch.Pattern
 		Args         []interface{}
 		Path           string
 		ExpectedArgs []string
 	}{
 		{
-			Pattern: MustCompile("/{this}/{that}/{these}/{those}"),
+			Pattern: pathmatch.MustCompile("/{this}/{that}/{these}/{those}"),
 			Args: []interface{}{new(string), new(string), new(string), new(string), },
 			Path:                 "/apple/banana/cherry/grape",
 			ExpectedArgs: []string{"apple","banana","cherry","grape"},
@@ -24,65 +26,65 @@ func TestFind(t *testing.T) {
 
 
 		{
-			Pattern: MustCompile("/user/{sessionKey}"),
+			Pattern: pathmatch.MustCompile("/user/{sessionKey}"),
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 		{
-			Pattern: MustCompile("/user/{sessionKey}/"),
+			Pattern: pathmatch.MustCompile("/user/{sessionKey}/"),
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 
 		{
-			Pattern: MustCompile("/user/{sessionKey}/vehicle"),
+			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle"),
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 		{
-			Pattern: MustCompile("/user/{sessionKey}/vehicle/"),
+			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/"),
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 
 		{
-			Pattern: MustCompile("/user/{sessionKey}/vehicle/DEFAULT"),
+			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/DEFAULT"),
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/DEFAULT",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 		{
-			Pattern: MustCompile("/user/{sessionKey}/vehicle/DEFAULT/"),
+			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/DEFAULT/"),
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/DEFAULT/",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 
 		{
-			Pattern: MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}"),
+			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}"),
 			Args: []interface{}{new(string), new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/DEFAULT",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij", "DEFAULT"},
 		},
 		{
-			Pattern: MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}/"),
+			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}/"),
 			Args: []interface{}{new(string), new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/DEFAULT/",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij", "DEFAULT"},
 		},
 
 		{
-			Pattern: MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}"),
+			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}"),
 			Args: []interface{}{new(string), new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/N9Z_tiv7",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij", "N9Z_tiv7"},
 		},
 		{
-			Pattern: MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}/"),
+			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}/"),
 			Args: []interface{}{new(string), new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/N9Z_tiv7/",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij", "N9Z_tiv7"},
