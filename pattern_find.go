@@ -38,6 +38,10 @@ func (pattern *Pattern) Find(path string, args ...interface{}) (bool, error) {
 
 			s = s[len(bit):]
 		case wildcardBit:
+			if "" == s {
+				return false, nil
+			}
+
 			index := strings.IndexRune(s, '/')
 
 			var value string

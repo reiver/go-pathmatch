@@ -24,6 +24,26 @@ func TestPatternMatch(t *testing.T) {
 		},
 		{
 			Pattern: "/v1/help",
+			Path:    "/v1/help/me",
+			Expected: false,
+		},
+		{
+			Pattern: "/v1/help",
+			Path:    "/v1/help/me/",
+			Expected: false,
+		},
+		{
+			Pattern: "/v1/help",
+			Path:    "/v1/helping",
+			Expected: false,
+		},
+		{
+			Pattern: "/v1/help",
+			Path:    "/v1/helping/",
+			Expected: false,
+		},
+		{
+			Pattern: "/v1/help",
 			Path:    "/v2/help",
 			Expected: false,
 		},
@@ -62,6 +82,26 @@ func TestPatternMatch(t *testing.T) {
 		},
 		{
 			Pattern: "/v1/help/",
+			Path:    "/v1/help/me",
+			Expected: false,
+		},
+		{
+			Pattern: "/v1/help/",
+			Path:    "/v1/help/me/",
+			Expected: false,
+		},
+		{
+			Pattern: "/v1/help/",
+			Path:    "/v1/helping",
+			Expected: false,
+		},
+		{
+			Pattern: "/v1/help/",
+			Path:    "/v1/helping/",
+			Expected: false,
+		},
+		{
+			Pattern: "/v1/help/",
 			Path:    "/v2/help/",
 			Expected: false,
 		},
@@ -92,6 +132,11 @@ func TestPatternMatch(t *testing.T) {
 			Pattern: "/v1/user/{user_id}",
 			Path:    "/v1/user/123",
 			Expected: true,
+		},
+		{
+			Pattern: "/v1/user/{user_id}",
+			Path:    "/v1/user/",
+			Expected: false,
 		},
 		{
 			Pattern: "/v1/user/{user_id}",
@@ -140,6 +185,11 @@ func TestPatternMatch(t *testing.T) {
 			Pattern: "/v1/user/{user_id}/",
 			Path:    "/v1/user/123/",
 			Expected: true,
+		},
+		{
+			Pattern: "/v1/user/{user_id}/",
+			Path:    "/v1/user/",
+			Expected: false,
 		},
 		{
 			Pattern: "/v1/user/{user_id}/",
