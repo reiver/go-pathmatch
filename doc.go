@@ -1,12 +1,43 @@
 /*
-Package pathmatch provides pattern matching for paths.
+Package pathmatch provides pattern matching for path templates.
 
-For example, a path could be a file system path, or a path could be a path from a URL (such as an HTTP or HTTPS based URL).
+A path template might look something like the following:
 
-The matches can be loaded into variables (when using pathmatch.Find());
-or can be loaded into a struct (when using pathmatch.Pattern.FindAndLoad()).
+	/v1/users/{user_id}
 
-Example Usage:
+Or:
+
+	/account={account_name}/user={user_name}/message={message_hash}
+
+Or:
+
+	/backup/{folder_name}/
+Or:
+
+	/v2/select/{fields}/from/{table_name}/where/{filters}
+
+This path template could be a file system path, or a path could be a path from a URL (such as an HTTP or HTTPS based URL).
+
+To compile one of these pattern templates, you would do something such as:
+
+	var template string = "/v1/users/{user_id}/messages/{message_id}"
+
+	var pattern pathmatch.Pattern
+
+	err := pathmatch.CompileTo(&pattern, template)
+	if nil != err {
+		fmt.Fprintf(os.Stdout, "ERROR: %s\n", err)
+		return
+	}
+
+(In addition to the pathmatch.CompileTo() func, there is also the pathmatch.Compile(), and
+pathmatch.MustCompile(). But pathmatch.CompileTo() is recommended over the other 2 options
+for most cases.)
+
+One you have the compiled pattern, you would either use pathmatch.Match(), pathmatch.Find(),
+or pathmatch.FindAndLoad() depending on what you were trying to accomplish.
+
+Example Usage
 
 	var pattern pathmatch.Pattern
 	
@@ -35,7 +66,7 @@ Example Usage:
 	fmt.Printf("user_id     = %q \n", userId)     // user_id     = "bMM_kJFMEV"
 	fmt.Printf("vehicle_id  = %q \n", vehicleId)  // vehicle_id  = "o_bcU.RZGK"
 
-Alternate Example Usage:
+Alternate Example Usage
 
 	var pattern pathmatch.Pattern
 
@@ -64,6 +95,5 @@ Alternate Example Usage:
 	
 	fmt.Printf("user_id     = %q \n", data.UserId)     // user_id     = "bMM_kJFMEV"
 	fmt.Printf("vehicle_id  = %q \n", data.VehicleId)  // vehicle_id  = "o_bcU.RZGK"
-
 */
 package pathmatch
