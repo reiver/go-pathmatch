@@ -32,6 +32,7 @@ import (
 //	}
 type Pattern struct {
 	mutex sync.RWMutex
+	template            string
 	bits              []string
 	names             []string
 	namesSet map[string]struct{}
