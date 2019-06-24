@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func ExamplePatternString() {
+func ExamplePattern_String() {
 
 	var template = "/v1/users/{user_id}"
 
