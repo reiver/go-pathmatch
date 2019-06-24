@@ -67,6 +67,8 @@ func CompileTo(target *Pattern, uncompiledPattern string) error {
 
 	target.init(defaultFieldTagName)
 
+	target.template = uncompiledPattern
+
 	s := uncompiledPattern
 	for {
 		index := strings.IndexRune(s, '{')
