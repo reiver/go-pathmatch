@@ -45,6 +45,9 @@ func (pattern *Pattern) FindAndLoad(path string, strct interface{}) (bool, error
 	}
 
 	reflectedValueElem := reflectedValue.Elem()
+	if reflect.Struct != reflectedValueElem.Kind() {
+		return doesNotMatter, errExpectedAPointerToAStruct
+	}
 
 	reflectedValueElemType := reflectedValueElem.Type()
 
