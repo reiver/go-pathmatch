@@ -4,11 +4,13 @@ package pathmatch
 import (
 	"github.com/fatih/structs"
 
+	"reflect"
+
 	"testing"
 )
 
 
-func TestFindAndLoad(t *testing.T) {
+func TestFindAndLoadStrucs(t *testing.T) {
 
 	tests := []struct{
 		Pattern            *Pattern
@@ -163,6 +165,76 @@ func TestFindAndLoad(t *testing.T) {
 				t.Errorf("For test #%d, expected test.StructPtr.%s to (initially) be %q, but actually was %q.", testNumber, structFieldName, expected, actual)
 				continue
 			}
+		}
+	}
+}
+
+func TestFindAndLoadStrings(t *testing.T) {
+
+	tests := []struct{
+		Pattern   *Pattern
+		Path       string
+		Expected []string
+	}{
+		{
+			Pattern: MustCompile("/user/{sessionKey}"),
+			Path:                "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij",
+			Expected:         []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
+		},
+
+
+
+		{
+			Pattern: MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}/"),
+			Path:                "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/DEFAULT/",
+			Expected: []string{
+			                           "76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij",
+			                                                                               "DEFAULT",
+			},
+		},
+
+
+
+		{
+			Pattern: MustCompile("/{this}/{that}/{these}/{those}"),
+			Path:                "/apple/banana/cherry/grape",
+			Expected: []string{
+			                      "apple",
+			                            "banana",
+			                                   "cherry",
+			                                          "grape",
+			},
+		},
+	}
+
+	for testNumber, test := range tests {
+
+		var actual []string
+
+		matched, err := test.Pattern.FindAndLoad(test.Path, &actual)
+		if nil != err {
+			t.Errorf("For test #%d, did not expect an error, but actually got one: (%T) %q", testNumber, err, err)
+			t.Logf("\tPATTERN: %q", test.Pattern)
+			t.Logf("\tPATH:    %q", test.Path)
+			continue
+		}
+		if !matched {
+			t.Errorf("For test #%d, expected a match, but it didn't.", testNumber)
+			t.Logf("\tPATTERN: %q", test.Pattern)
+			t.Logf("\tPATH:    %q", test.Path)
+			t.Log("\t--")
+			t.Logf("\tMATCHED: %t", matched)
+			continue
+		}
+
+		if expected := test.Expected; !reflect.DeepEqual(expected, actual) {
+			t.Errorf("For test #%d, did not get what was expected.", testNumber)
+			t.Logf("\tPATTERN: %q", test.Pattern)
+			t.Logf("\tPATH:    %q", test.Path)
+			t.Log("\t--")
+			t.Logf("\tEXPECTED: %#v", expected)
+			t.Logf("\tACTUAL:   %#v", actual)
+			continue
 		}
 	}
 }
