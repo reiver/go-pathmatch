@@ -1,21 +1,21 @@
 # go-pathmatch
 
-A library that provides *pattern matching* for paths, for the Go programming language.
+A library that provides *pattern-matching* for paths, for the Go programming language.
 
 For example, a path could be a file system path, or a path could be a path from a URL (such as an HTTP or HTTPS based URL).
 
 
 ## Documention
 
-Online documentation, which includes examples, can be found at: http://godoc.org/github.com/reiver/go-pathmatch
+Online documentation, which includes examples, can be found at: http://godoc.org/sourcecode.social/reiver/go-pathmatch
 
-[![GoDoc](https://godoc.org/github.com/reiver/go-pathmatch?status.svg)](https://godoc.org/github.com/reiver/go-pathmatch)
+[![GoDoc](https://godoc.org/sourcecode.social/reiver/go-pathmatch?status.svg)](https://godoc.org/sourcecode.social/reiver/go-pathmatch)
 
 
 ## Example Usage
 ```go
 import (
-	"github.com/reiver/go-pathmatch"
+	"sourcecode.social/reiver/go-pathmatch"
 )
 
 // ...
@@ -51,7 +51,7 @@ fmt.Printf("vehicle_id  = %q \n", vehicleId)  // vehicle_id  = "o_bcU.RZGK"
 Alternatively:
 ```go
 import (
-	"github.com/reiver/go-pathmatch"
+	"sourcecode.social/reiver/go-pathmatch"
 )
 
 // ...
