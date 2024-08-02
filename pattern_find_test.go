@@ -2,7 +2,7 @@ package pathmatch_test
 
 
 import (
-	"sourcecode.social/reiver/go-pathmatch"
+	"github.com/reiver/go-pathmatch"
 
 	"testing"
 )

@@ -7,15 +7,15 @@ For example, a path could be a file system path, or a path could be a path from 
 
 ## Documention
 
-Online documentation, which includes examples, can be found at: http://godoc.org/sourcecode.social/reiver/go-pathmatch
+Online documentation, which includes examples, can be found at: http://godoc.org/github.com/reiver/go-pathmatch
 
-[![GoDoc](https://godoc.org/sourcecode.social/reiver/go-pathmatch?status.svg)](https://godoc.org/sourcecode.social/reiver/go-pathmatch)
+[![GoDoc](https://godoc.org/github.com/reiver/go-pathmatch?status.svg)](https://godoc.org/github.com/reiver/go-pathmatch)
 
 
 ## Example Usage
 ```go
 import (
-	"sourcecode.social/reiver/go-pathmatch"
+	"github.com/reiver/go-pathmatch"
 )
 
 // ...
@@ -51,7 +51,7 @@ fmt.Printf("vehicle_id  = %q \n", vehicleId)  // vehicle_id  = "o_bcU.RZGK"
 Alternatively:
 ```go
 import (
-	"sourcecode.social/reiver/go-pathmatch"
+	"github.com/reiver/go-pathmatch"
 )
 
 // ...

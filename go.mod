@@ -1,4 +1,4 @@
-module sourcecode.social/reiver/go-pathmatch
+module github.com/reiver/go-pathmatch
 
 go 1.20
 
