@@ -86,3 +86,21 @@ fmt.Println("The path matched!")
 fmt.Printf("user_id     = %q \n", data.UserId)     // user_id     = "bMM_kJFMEV"
 fmt.Printf("vehicle_id  = %q \n", data.VehicleId)  // vehicle_id  = "o_bcU.RZGK"
 ```
+
+## Import
+
+To import package **pathmatch** use `import` code like the follownig:
+```
+import "github.com/reiver/go-pathmatch"
+```
+
+## Installation
+
+To install package **pathmatch** do the following:
+```
+GOPROXY=direct go get https://github.com/reiver/go-pathmatch
+```
+
+## Author
+
+Package **pathmatch** was written by [Charles Iliya Krempeaux](http://reiver.link)
