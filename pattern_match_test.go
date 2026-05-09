@@ -333,6 +333,104 @@ func TestPatternMatch(t *testing.T) {
 			Path:    "/v1/COMPANY/acme/",
 			Expected: false,
 		},
+
+
+
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ed7ba470-8e54-465e-825c-99712043e01c.jsonld",
+			Expected: true,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ED7BA470-8E54-465E-825C-99712043E01C.jsonld",
+			Expected: true,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ed7ba470-8e54-465e-825c-99712043e01c.jsonl",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ED7BA470-8E54-465E-825C-99712043E01C.jsonl",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ed7ba470-8e54-465e-825c-99712043e01c.json",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ED7BA470-8E54-465E-825C-99712043E01C.json",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ed7ba470-8e54-465e-825c-99712043e01c.jso",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ED7BA470-8E54-465E-825C-99712043E01C.jso",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ed7ba470-8e54-465e-825c-99712043e01c.js",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ED7BA470-8E54-465E-825C-99712043E01C.js",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ed7ba470-8e54-465e-825c-99712043e01c.j",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ED7BA470-8E54-465E-825C-99712043E01C.j",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ed7ba470-8e54-465e-825c-99712043e01c.",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ED7BA470-8E54-465E-825C-99712043E01C.",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ed7ba470-8e54-465e-825c-99712043e01c",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/object/ED7BA470-8E54-465E-825C-99712043E01C",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/OBJECT/ed7ba470-8e54-465e-825c-99712043e01c.jsonld",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/-/OBJECT/ED7BA470-8E54-465E-825C-99712043E01C.jsonld",
+			Expected: false,
+		},
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Path:    "/apple/banana/cherry/ed7ba470-8e54-465e-825c-99712043e01c.jsonld",
+			Expected: false,
+		},
 	}
 
 	for testNumber, test := range tests {

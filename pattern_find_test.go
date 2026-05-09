@@ -11,13 +11,13 @@ import (
 func TestFind(t *testing.T) {
 
 	tests := []struct{
-		Pattern       *pathmatch.Pattern
+		Pattern        string
 		Args         []interface{}
 		Path           string
 		ExpectedArgs []string
 	}{
 		{
-			Pattern: pathmatch.MustCompile("/{this}/{that}/{these}/{those}"),
+			Pattern: "/{this}/{that}/{these}/{those}",
 			Args: []interface{}{new(string), new(string), new(string), new(string), },
 			Path:                 "/apple/banana/cherry/grape",
 			ExpectedArgs: []string{"apple","banana","cherry","grape"},
@@ -26,73 +26,83 @@ func TestFind(t *testing.T) {
 
 
 		{
-			Pattern: pathmatch.MustCompile("/user/{sessionKey}"),
+			Pattern: "/user/{sessionKey}",
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 		{
-			Pattern: pathmatch.MustCompile("/user/{sessionKey}/"),
+			Pattern: "/user/{sessionKey}/",
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 
 		{
-			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle"),
+			Pattern: "/user/{sessionKey}/vehicle",
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 		{
-			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/"),
+			Pattern: "/user/{sessionKey}/vehicle/",
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 
 		{
-			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/DEFAULT"),
+			Pattern: "/user/{sessionKey}/vehicle/DEFAULT",
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/DEFAULT",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 		{
-			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/DEFAULT/"),
+			Pattern: "/user/{sessionKey}/vehicle/DEFAULT/",
 			Args: []interface{}{new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/DEFAULT/",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij"},
 		},
 
 		{
-			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}"),
+			Pattern: "/user/{sessionKey}/vehicle/{vehicleIdcode}",
 			Args: []interface{}{new(string), new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/DEFAULT",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij", "DEFAULT"},
 		},
 		{
-			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}/"),
+			Pattern: "/user/{sessionKey}/vehicle/{vehicleIdcode}/",
 			Args: []interface{}{new(string), new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/DEFAULT/",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij", "DEFAULT"},
 		},
 
 		{
-			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}"),
+			Pattern: "/user/{sessionKey}/vehicle/{vehicleIdcode}",
 			Args: []interface{}{new(string), new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/N9Z_tiv7",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij", "N9Z_tiv7"},
 		},
 		{
-			Pattern: pathmatch.MustCompile("/user/{sessionKey}/vehicle/{vehicleIdcode}/"),
+			Pattern: "/user/{sessionKey}/vehicle/{vehicleIdcode}/",
 			Args: []interface{}{new(string), new(string), },
 			Path:                 "/user/76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij/vehicle/N9Z_tiv7/",
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij", "N9Z_tiv7"},
 		},
+
+
+
+		{
+			Pattern: "/-/object/{uuid}.jsonld",
+			Args: []interface{}{new(string), },
+			Path:                 "/-/object/ED7BA470-8E54-465E-825C-99712043E01C.jsonld",
+			ExpectedArgs: []string{"ED7BA470-8E54-465E-825C-99712043E01C"},
+		},
 	}
 
-
 	for testNumber, test := range tests {
+
+		var pattern *pathmatch.Pattern = pathmatch.MustCompile(test.Pattern)
 
 		for argNumber, arg := range test.Args {
 			argStringPtr, ok := arg.(*string)
@@ -107,11 +117,13 @@ func TestFind(t *testing.T) {
 			}
 		}
 
-		if didMatch, err := test.Pattern.Find(test.Path, test.Args...); nil != err {
+		if didMatch, err := pattern.Find(test.Path, test.Args...); nil != err {
 			t.Errorf("For test #%d, did not expected an error, but actually got one: %v", testNumber, err)
 			continue
 		} else if !didMatch {
 			t.Errorf("For test #%d, expected path to match pattern, but it didn't.", testNumber)
+			t.Logf("PATTERN: %q", test.Pattern)
+			t.Logf("PATH:    %q", test.Path)
 			continue
 		}
 

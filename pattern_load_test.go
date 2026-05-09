@@ -127,6 +127,19 @@ func TestFindAndLoadStrucs(t *testing.T) {
 			ExpectedArgs: []string{"76M6.mXQfgiGSC_YJ5uXSnWUmELbe8OgOm5n.iZ98Ij", "N9Z_tiv7"},
 		},
 */
+
+
+
+		{
+			Pattern: MustCompile("/-/object/{uuid}.jsonld"),
+			StructPtr: new(struct{
+				UUID string `match:"uuid"`
+			}),
+			Path:                "/-/object/ED7BA470-8E54-465E-825C-99712043E01C.jsonld",
+			Expected: map[string]string{
+				"UUID":"ED7BA470-8E54-465E-825C-99712043E01C",
+			},
+		},
 	}
 
 

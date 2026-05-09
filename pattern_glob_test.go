@@ -187,6 +187,13 @@ func TestGlob(t *testing.T) {
 			Pattern:  "{this}/{that}/{these}/{those}/",
 			Expected: "*/*/*/*/",
 		},
+
+
+
+		{
+			Pattern:  "/-/object/{uuid}.jsonld",
+			Expected: "/-/object/*.jsonld",
+		},
 	}
 
 

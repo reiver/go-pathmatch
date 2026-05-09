@@ -2,6 +2,7 @@ package pathmatch
 
 import (
 	"strings"
+	"unicode/utf8"
 )
 
 const (
@@ -28,7 +29,7 @@ func (pattern *Pattern) Find(path string, args ...interface{}) (bool, error) {
 	s := path
 
 	argsIndex := 0
-	for _, bit := range pattern.bits {
+	for bitIndex, bit := range pattern.bits {
 
 		switch bit {
 		default:
@@ -43,6 +44,17 @@ func (pattern *Pattern) Find(path string, args ...interface{}) (bool, error) {
 			}
 
 			index := strings.IndexRune(s, '/')
+			{
+				var nextBitIndex int = 1+bitIndex
+
+				if nextBitIndex < len(pattern.bits) {
+					nextBit := pattern.bits[nextBitIndex]
+
+					r, _ := utf8.DecodeRuneInString(nextBit)
+
+					index = strings.IndexRune(s, r)
+				}
+			}
 
 			var value string
 			switch {

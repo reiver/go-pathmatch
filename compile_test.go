@@ -449,6 +449,21 @@ func TestCompileAndMatchNames(t *testing.T) {
 				"/",
 			},
 		},
+
+
+
+		{
+			UncompiledPattern: "/-/object/{uuid}.jsonld",
+			ExpectedNames:[]string{       "uuid"},
+			ExpectedNamesSet:map[string]struct{}{
+				"uuid":struct{}{},
+			},
+			ExpectedBits: []string{
+				"/-/object/",
+				wildcardBit,
+				".jsonld",
+			},
+		},
 	}
 
 
