@@ -464,6 +464,24 @@ func TestCompileAndMatchNames(t *testing.T) {
 				".jsonld",
 			},
 		},
+
+
+
+		{
+			UncompiledPattern: "/-/outbox({begin},{end}).jsonld",
+			ExpectedNames:[]string{       "begin","end"},
+			ExpectedNamesSet:map[string]struct{}{
+				"begin":struct{}{},
+				"end":struct{}{},
+			},
+			ExpectedBits: []string{
+				"/-/outbox(",
+				wildcardBit,
+				",",
+				wildcardBit,
+				").jsonld",
+			},
+		},
 	}
 
 

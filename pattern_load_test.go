@@ -140,6 +140,21 @@ func TestFindAndLoadStrucs(t *testing.T) {
 				"UUID":"ED7BA470-8E54-465E-825C-99712043E01C",
 			},
 		},
+
+
+
+		{
+			Pattern: MustCompile("/-/outbox({begin},{end}).jsonld"),
+			StructPtr: new(struct{
+				Begin string `match:"begin"`
+				End   string `match:"end"`
+			}),
+			Path:                "/-/outbox(12,345).jsonld",
+			Expected: map[string]string{
+				"Begin": "12",
+				"End":   "345",
+			},
+		},
 	}
 
 

@@ -98,6 +98,15 @@ func TestFind(t *testing.T) {
 			Path:                 "/-/object/ED7BA470-8E54-465E-825C-99712043E01C.jsonld",
 			ExpectedArgs: []string{"ED7BA470-8E54-465E-825C-99712043E01C"},
 		},
+
+
+
+		{
+			Pattern: "/-/outbox({begin},{end}).jsonld",
+			Args: []interface{}{new(string), new(string), },
+			Path:        "/-/outbox(12,345).jsonld",
+			ExpectedArgs: []string{"12","345"},
+		},
 	}
 
 	for testNumber, test := range tests {

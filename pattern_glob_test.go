@@ -194,6 +194,13 @@ func TestGlob(t *testing.T) {
 			Pattern:  "/-/object/{uuid}.jsonld",
 			Expected: "/-/object/*.jsonld",
 		},
+
+
+
+		{
+			Pattern:  "/-/outbox({begin},{end}).jsonld",
+			Expected: "/-/outbox(*,*).jsonld",
+		},
 	}
 
 

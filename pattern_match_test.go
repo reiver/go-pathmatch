@@ -431,6 +431,30 @@ func TestPatternMatch(t *testing.T) {
 			Path:    "/apple/banana/cherry/ed7ba470-8e54-465e-825c-99712043e01c.jsonld",
 			Expected: false,
 		},
+
+
+
+		{
+			Pattern: "/-/outbox({begin}).jsonld",
+			Path:    "/-/outbox(0).jsonld",
+			Expected: true,
+		},
+		{
+			Pattern: "/-/outbox({begin}).jsonld",
+			Path:    "/-/outbox(10).jsonld",
+			Expected: true,
+		},
+
+		{
+			Pattern: "/-/outbox({begin},{end}).jsonld",
+			Path:    "/-/outbox(0,10).jsonld",
+			Expected: true,
+		},
+		{
+			Pattern: "/-/outbox({begin},{end}).jsonld",
+			Path:    "/-/outbox(10,20).jsonld",
+			Expected: true,
+		},
 	}
 
 	for testNumber, test := range tests {
